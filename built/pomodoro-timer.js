@@ -55,7 +55,7 @@ System.register(['@angular/core', '@angular/platform-browser-dynamic'], function
                 PomodoroTimerComponent = __decorate([
                     core_1.Component({
                         selector: 'pomodoro-timer',
-                        template: "\n    <h1> {{ minutes }}:{{ seconds }} </h1>\n    <p>\n      <button (click)=\"togglePause()\">\n        {{ buttonLabel }}\n      </button>\n    </p>\n  "
+                        template: "\n    <h1> {{ minutes }}:{{ seconds | number: '2.0' }} </h1>\n    <p>\n      <button (click)=\"togglePause()\">\n        {{ buttonLabel }}\n      </button>\n    </p>\n  "
                     }), 
                     __metadata('design:paramtypes', [])
                 ], PomodoroTimerComponent);
