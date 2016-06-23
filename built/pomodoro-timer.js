@@ -31,14 +31,25 @@ System.register(['@angular/core', '@angular/platform-browser-dynamic'], function
                 PomodoroTimerComponent.prototype.resetPomodoro = function () {
                     this.minutes = 24;
                     this.seconds = 59;
+                    this.buttonLabel = 'Start';
+                    this.togglePause();
                 };
                 //then starts all over again
                 PomodoroTimerComponent.prototype.tick = function () {
-                    if (--this.seconds < 0) {
-                        this.seconds = 59;
-                        if (--this.minutes < 0) {
-                            this.resetPomodoro();
+                    if (!this.isPaused) {
+                        this.buttonLabel = "Pause";
+                        if (--this.seconds < 0) {
+                            this.seconds = 59;
+                            if (--this.minutes < 0) {
+                                this.resetPomodoro();
+                            }
                         }
+                    }
+                };
+                PomodoroTimerComponent.prototype.togglePause = function () {
+                    this.isPaused = !this.isPaused;
+                    if (this.minutes < 24 || this.seconds < 59) {
+                        this.buttonLabel = this.isPaused ? 'Resume' : 'Pause';
                     }
                 };
                 PomodoroTimerComponent = __decorate([

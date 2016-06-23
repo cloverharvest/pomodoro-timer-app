@@ -16,6 +16,8 @@ import { bootstrap } from '@angular/platform-browser-dynamic';
 class PomodoroTimerComponent {
   minutes: number;
   seconds: number;
+  isPaused: boolean;
+  buttonLabel: string;
 
 //this timer countdowns from 25 minutes to 0,
   constructor() {
@@ -26,17 +28,31 @@ class PomodoroTimerComponent {
   resetPomodoro(): void {
     this.minutes = 24;
     this.seconds = 59;
+    this.buttonLabel = 'Start';
+    this.togglePause();
   }
 
 //then starts all over again
   private tick(): void {
-    if (--this.seconds < 0) {
-      this.seconds = 59;
-      if (--this.minutes < 0) {
-        this.resetPomodoro();
+    if (!this.isPaused) {
+      this.buttonLabel = "Pause";
+
+      if (--this.seconds < 0) {
+        this.seconds = 59;
+        if (--this.minutes < 0) {
+          this.resetPomodoro();
+        }
       }
     }
   }
+
+  togglePause(): void {
+    this.isPaused = !this.isPaused;
+    if (this.minutes < 24 || this.seconds < 59) {
+      this.buttonLabel = this.isPaused ? 'Resume' : 'Pause';
+    }
+  }
 }
+
 
 bootstrap(PomodoroTimerComponent);
