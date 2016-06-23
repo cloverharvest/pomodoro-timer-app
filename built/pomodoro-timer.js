@@ -22,14 +22,29 @@ System.register(['@angular/core', '@angular/platform-browser-dynamic'], function
             }],
         execute: function() {
             PomodoroTimerComponent = (function () {
+                //this timer countdowns from 25 minutes to 0,
                 function PomodoroTimerComponent() {
+                    var _this = this;
+                    this.resetPomodoro();
+                    setInterval(function () { return _this.tick(); }, 1000);
+                }
+                PomodoroTimerComponent.prototype.resetPomodoro = function () {
                     this.minutes = 24;
                     this.seconds = 59;
-                }
+                };
+                //then starts all over again
+                PomodoroTimerComponent.prototype.tick = function () {
+                    if (--this.seconds < 0) {
+                        this.seconds = 59;
+                        if (--this.minutes < 0) {
+                            this.resetPomodoro();
+                        }
+                    }
+                };
                 PomodoroTimerComponent = __decorate([
                     core_1.Component({
                         selector: 'pomodoro-timer',
-                        template: '<h1> {{ minutes }}:{{ seconds }} </h1>'
+                        template: "\n    <h1> {{ minutes }}:{{ seconds }} </h1>\n    <p>\n      <button (click)=\"togglePause()\">\n        {{ buttonLabel }}\n      </button>\n    </p>\n  "
                     }), 
                     __metadata('design:paramtypes', [])
                 ], PomodoroTimerComponent);
